@@ -1,0 +1,27 @@
+---
+title: "Predicting Home Prices in King County"
+subtitle: "How different methods of analysis yield different results"
+author:
+- "Alexander Bell-Towne"
+- "Jack Fox" 
+- "Sean Ker"
+- "Spencer Pease"
+date: "March 8, 2017"
+output: html_notebook
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = FALSE,
+    warning = FALSE,
+    message = FALSE,
+    fig.retina = 4,
+    fig.width = 10,
+    fig.height = 7
+)
+
+# Source files
+source('analysis.R')
+
+# Needed libraries
+```
