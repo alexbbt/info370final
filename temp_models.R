@@ -16,3 +16,12 @@ y <- if_else(runif(100) < .5,
 
 data <- tibble(x, y)
 
+
+# make plot
+g <- ggplot(data = data,
+            aes(x = x,
+                y = y)) +
+    geom_point()
+
+ggplotly(g)
+
