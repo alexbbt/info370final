@@ -3,6 +3,7 @@
 # Needed libraries
 library(shiny)
 library(shinythemes)
+library(plotly)
 
 
 #########################
@@ -51,11 +52,7 @@ shinyUI(
                     tableOutput("table"),
                     h4("Verbatim text output"),
                     verbatimTextOutput("txtout"),
-                    h1("Header 1"),
-                    h2("Header 2"),
-                    h3("Header 3"),
-                    h4("Header 4"),
-                    h5("Header 5")
+                    plotlyOutput("plot")
                 ),
 
                 tabPanel("Tab 2"),

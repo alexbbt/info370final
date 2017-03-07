@@ -4,7 +4,7 @@
 library(shiny)
 
 # Source files
-source('./temp_models.R')
+source('temp_models.R')
 
 
 #############################
@@ -18,6 +18,9 @@ shinyServer(function(input, output) {
     })
     output$table <- renderTable({
         head(cars, 4)
+    })
+    output$plot <- renderPlotly({
+        ggplotly(g)
     })
 
 })
