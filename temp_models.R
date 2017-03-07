@@ -2,7 +2,7 @@
 #
 
 # Needed libraries
-library(plotly)
+library(ggplot2)
 library(dplyr)
 library(tibble)
 
@@ -22,6 +22,4 @@ g <- ggplot(data = data,
             aes(x = x,
                 y = y)) +
     geom_point()
-
-ggplotly(g)
 
