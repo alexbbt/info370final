@@ -11,8 +11,8 @@ set.seed(666)
 
 x <- runif(100, 0, 100)
 y <- if_else(runif(100) < .5,
-             x + runif(1, 0, 10),
-             x - runif(1, 0, 10))
+             x + runif(100, 0, 15),
+             x - runif(100, 0, 15))
 
 data <- tibble(x, y)
 
