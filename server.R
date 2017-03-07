@@ -3,6 +3,9 @@
 # Needed libraries
 library(shiny)
 
+# Source files
+source('./temp_models.R')
+
 
 #############################
 ### Shiny server function ###
