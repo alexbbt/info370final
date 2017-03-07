@@ -35,29 +35,17 @@ shinyUI(
             h1("Interactive"),
 
             sidebarPanel(
-
-                fileInput("file", "File input:"),
-                textInput("txt", "Text input:", "general"),
-                sliderInput("slider", "Slider input:", 1, 100, 30),
-                h5("Deafult actionButton:"),
-                actionButton("action", "Search"),
-                h5("actionButton with CSS class:"),
-                actionButton("action2", "Action button", class = "btn-primary")
+                radioButtons("model",
+                             "Select Model:",
+                             c("Full" = "full",
+                               "Top 5" = "top5",
+                               "Second 5" = "second5"))
             ),
 
-            mainPanel(tabsetPanel(
-                tabPanel(
-                    "Tab 1",
-                    h4("Table"),
-                    tableOutput("table"),
-                    h4("Verbatim text output"),
-                    verbatimTextOutput("txtout"),
-                    plotlyOutput("plot")
-                ),
-
-                tabPanel("Tab 2"),
-                tabPanel("Tab 3")
-            ))
+            mainPanel(
+                h2("Model"),
+                plotlyOutput("plot")
+            )
         )
 
 

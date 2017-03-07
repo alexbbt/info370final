@@ -13,12 +13,6 @@ source('temp_models.R')
 
 shinyServer(function(input, output) {
 
-    output$txtout <- renderText({
-        paste(input$txt, input$slider, format(input$date), sep = ", ")
-    })
-    output$table <- renderTable({
-        head(cars, 4)
-    })
     output$plot <- renderPlotly({
         ggplotly(g)
     })
