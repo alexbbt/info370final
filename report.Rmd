@@ -22,7 +22,8 @@ knitr::opts_chunk$set(
 source('analysis.R')
 
 # Needed libraries
-
+library(dplyr)
+library(ggplot2)
 
 ```
 
@@ -46,6 +47,29 @@ Our dataset includes data from houses built between 1900 and 2015 in the King Co
 - The grade of the house
 - Square feet of above ground living space
 - … 
+
+Below is snippet of the distributions for each feature in the data set
+
+```{r, echo = FALSE}
+graph.data <- test.data
+graph.data$sqft_living <- log(graph.data$sqft_living)
+graph.data$sqft_lot <- log(graph.data$sqft_lot)
+graph.data$sqft_above <- log(graph.data$sqft_above)
+graph.data$sqft_basement <- log(graph.data$sqft_basement)
+graph.data$sqft_living15 <- log(graph.data$sqft_living15)
+graph.data$sqft_lot15 <- log(graph.data$sqft_lot15)
+graph.data$sqft_lot_diff <- log(graph.data$sqft_lot_diff)
+
+melt.df <- melt(graph.data %>% select(-price, -id,-prediction.all, prediction.rsquare, -prediction.rsquare,
+                                     -prediction.upper, -prediction.lower))
+
+
+ggplot(melt.df,aes(x = value)) + 
+  facet_wrap(~variable, scales = "free_x") + 
+  geom_histogram()
+
+
+```
 
 ``` {r head, echo = FALSE}
 head(test.data)

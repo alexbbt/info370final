@@ -11,6 +11,7 @@ library(reshape2)
 library(tidyr)
 library(ggplot2)
 library(dplyr)
+library(tidyr)
 
 # Load data
 test <- read_csv('./data/testing.csv')
@@ -95,3 +96,5 @@ rmse.data <-
 
 write_csv(test.data, 'data/pred_data.csv')
 write_csv(rmse.data, 'data/models_rmse.csv')
+
+
