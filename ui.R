@@ -19,8 +19,7 @@ shinyUI(
 
         tabPanel(
             title = "Introduction",
-            h1("Introduction"),
-            p("Welcome to our project")
+            includeHTML('introduction.html')
         ),
 
         tabPanel(
