@@ -65,3 +65,16 @@ plot(test.data$price.thousands, test.data$prediction.rsquare)
 plot(test.data$price.thousands, test.data$prediction.upper)
 plot(test.data$price.thousands, test.data$prediction.lower)
 
+
+######################
+### Write new data ###
+######################
+
+rmse.data <-
+    data_frame(
+        model.name = c('all', 'lower', 'upper', 'rsquare'),
+        rmse = c(RMSE.all, RMSE.lower, RMSE.upper, RMSE.rsquared)
+    )
+
+write_csv(test.data, 'data/pred_data.csv')
+write_csv(rmse.data, 'data/models_rmse.csv')
