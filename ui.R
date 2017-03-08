@@ -33,20 +33,27 @@ shinyUI(
             title = "Interactive",
             h1("Interactive"),
 
-            sidebarPanel(
-                radioButtons("model",
-                             "Select Model:",
-                             c("Full" = "full",
-                               "Top 5" = "top5",
-                               "Second 5" = "second5"))
-            ),
-
-            mainPanel(
-                h2("Model"),
-                plotlyOutput("plot")
+            fluidRow(
+                column(3,
+                    wellPanel(
+                        h4(strong("Choose Model:")),
+                        radioButtons(inputId = "model",
+                                     label = "",
+                                     choices = c(
+                                         "Full" = "full",
+                                         "Top 5" = "top5",
+                                         "Second 5" = "second5"
+                                     ))
+                   ),
+                   wellPanel(
+                       h4(strong("Model Info:")),
+                       textOutput(outputId = "info")
+                   )),
+                column(9,
+                    h2("Model"),
+                    plotlyOutput("plot")
+                )
             )
         )
-
-
     )
 )
