@@ -47,7 +47,7 @@ shinyUI(
                    ),
                    wellPanel(
                        h4(strong("Model Info:")),
-                       textOutput(outputId = "info")
+                       textOutput(outputId = "model_info")
                    )),
                 column(9,
                     h2("Model"),

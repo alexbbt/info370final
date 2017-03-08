@@ -17,4 +17,8 @@ shinyServer(function(input, output) {
         ggplotly(g)
     })
 
+    output$model_info <- renderText({
+        paste("hello", 2 + 2)
+    })
+
 })
