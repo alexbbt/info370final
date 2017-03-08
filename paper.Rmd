@@ -15,8 +15,10 @@ knitr::opts_chunk$set(
 
 # Source files
 source('analysis.R')
+source('shiny_setup.R')
 
 # Needed libraries
+library(ggplot2)
 
 
 ```
@@ -58,10 +60,19 @@ Finally, for each tree we plotted the observed values against the predicted valu
 
 ## Results
 
-One major insight we drew from our research is that by using all the attributes in our dataset, we were able to obtain the lowest RMSE value and a linear model that had the best fit for our test data. In addition, when comparing the the group of covariates with R^2 value of over 25% and those that were below 25%, we discovered that the former set had a better fitting linear model. 
+One major insight we drew from our research is that by using all the attributes in our dataset, we were able to obtain the lowest RMSE value and a linear model that had the best fit for our test data. In addition, when comparing the the group of covariates with R^2^ value of over 25% and those that were below 25%, we discovered that the former set had a better fitting linear model. 
 
-The major insights 
-Finding a balance between prediction (trees) and analysis (linear models)
+**Models:**
+
+_(Note: The gold line shows the best fit line of the data, and the red line 
+shows the "ideal fit line" (ie, perfect predictions).)_
+
+```{r message=F, echo=F, message=F, warning=F}
+plot_pred('all') + labs(title = 'All covariates')
+plot_pred('rsquare') + labs(title = 'All covariates in the top 10% of r-square values')
+plot_pred('upper') + labs(title = 'Features with r-square values above 25%')
+plot_pred('lower') + labs(title = 'Features with r-square values between 25% and 50%')
+```
 
 
 ## Discussion
