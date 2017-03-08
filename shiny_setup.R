@@ -51,7 +51,11 @@ plot_pred <- function(model) {
 }
 
 g.all <- plot_pred('all')
-g.lower <- plot_pred('lower')
-g.upper <- plot_pred('upper')
-g.rsquare <- plot_pred('rsquare')
+
+
+#################
+### RMSE list ###
+#################
+
+rmse <- setNames(as.list(model.rmse$rmse), model.rmse$model.name)
 

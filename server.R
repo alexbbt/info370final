@@ -25,7 +25,9 @@ shinyServer(function(input, output) {
     })
 
     output$model_info <- renderText({
-        paste("hello", 2 + 2)
+        paste("The rmse for this model is:",
+              round(as.numeric(rmse[input$model]),
+                    digits = 2))
     })
 
 })
