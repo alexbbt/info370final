@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 source('analysis.R')
 
 # Needed libraries
-
+library(knitr)
 
 ```
 
@@ -48,7 +48,7 @@ Our dataset includes data from houses built between 1900 and 2015 in the King Co
 - … 
 
 ``` {r head, echo = FALSE}
-head(test.data)
+kable(head(test.data %>% select(-id, -date, -lat, -long, -zipcode)))
 ```
 
 We discovered that some of the features in this dataset had major outliers. For example, the price feature had a maximum value of 7,700,000 and a minimum of 75,000 
