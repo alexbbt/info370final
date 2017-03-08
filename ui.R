@@ -25,8 +25,7 @@ shinyUI(
 
         tabPanel(
             title = "Report",
-            h1("Report"),
-            p("This is our report")
+            includeHTML('temp_report.html')
         ),
 
         tabPanel(
