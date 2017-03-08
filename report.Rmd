@@ -3,7 +3,7 @@ title: "Predicting Home Prices in King County"
 subtitle: "How different methods of analysis yield different results"
 author: "Alexander Bell-Towne, Jack Fox, Sean Ker, Spencer Pease"
 date: "March 8, 2017"
-output: 
+output:
     html_document:
         theme: null
 ---
@@ -23,6 +23,8 @@ source('analysis.R')
 
 # Needed libraries
 library(knitr)
+library(dplyr)
+library(ggplot2)
 
 ```
 
@@ -32,9 +34,9 @@ The purpose of this resource is to show which covariates in our dataset influenc
 
 ## Exploratory Data Analysis
 
-Our dataset includes data from houses built between 1900 and 2015 in the King County, USA area. There are 21,613 observations of with 21 features, including some of the following:  
+Our dataset includes data from houses built between 1900 and 2015 in the King County, USA area. There are 21,613 observations of with 21 features, including some of the following:
 - Price of home (at a given Date)
-- Date (see above) 
+- Date (see above)
 - Number of bedrooms
 - Number of bathrooms
 - Square feet of living space
@@ -45,32 +47,55 @@ Our dataset includes data from houses built between 1900 and 2015 in the King Co
 - The condition of the house
 - The grade of the house
 - Square feet of above ground living space
-- … 
+- …
+
+Below is snippet of the distributions for each feature in the data set
+
+```{r, echo = FALSE}
+graph.data <- test.data
+graph.data$sqft_living <- log(graph.data$sqft_living)
+graph.data$sqft_lot <- log(graph.data$sqft_lot)
+graph.data$sqft_above <- log(graph.data$sqft_above)
+graph.data$sqft_basement <- log(graph.data$sqft_basement)
+graph.data$sqft_living15 <- log(graph.data$sqft_living15)
+graph.data$sqft_lot15 <- log(graph.data$sqft_lot15)
+graph.data$sqft_lot_diff <- log(graph.data$sqft_lot_diff)
+
+melt.df <- melt(graph.data %>% select(-price, -id,-prediction.all, prediction.rsquare, -prediction.rsquare,
+                                     -prediction.upper, -prediction.lower))
+
+
+ggplot(melt.df,aes(x = value)) +
+  facet_wrap(~variable, scales = "free_x") +
+  geom_histogram()
+
+
+```
 
 ``` {r head, echo = FALSE}
 kable(head(test.data %>% select(-id, -date, -lat, -long, -zipcode)))
 ```
 
-We discovered that some of the features in this dataset had major outliers. For example, the price feature had a maximum value of 7,700,000 and a minimum of 75,000 
+We discovered that some of the features in this dataset had major outliers. For example, the price feature had a maximum value of 7,700,000 and a minimum of 75,000
 
 ``` {r price, echo = FALSE}
 hist(test.data$price.thousands)
 ```
 
-In addition, the number of bedrooms attribute also had major outliers, with a maximum value of 33 bedrooms and a mean of 3.371. 
+In addition, the number of bedrooms attribute also had major outliers, with a maximum value of 33 bedrooms and a mean of 3.371.
 
 ``` {r bedrooms, echo = FALSE}
 hist(test.data$bedrooms)
 ```
 
-## Methods 
-Since our mission was to identify the features (e.g number of bathrooms or square footage of the property) of a home that would efficiently predict its sale’s price, we first needed to discover which features had the most positive impact on the price. Then, using these identified features, we could create a model that would be used to predict the sale price of a home. This approach required us to implement both linear models and machine learning tools.  
+## Methods
+Since our mission was to identify the features (e.g number of bathrooms or square footage of the property) of a home that would efficiently predict its sale’s price, we first needed to discover which features had the most positive impact on the price. Then, using these identified features, we could create a model that would be used to predict the sale price of a home. This approach required us to implement both linear models and machine learning tools.
 
-But before applying any statistical methods, we randomly split the data into three portions: the training set (70% of the total data), the validation set (10% of the total data) and the testing set (20% of the total data).  Each subset of the data was then transformed into a data frame where we created custom metrics (such as price in thousands) and ensured that factored features had the same levels across all three sets. 
+But before applying any statistical methods, we randomly split the data into three portions: the training set (70% of the total data), the validation set (10% of the total data) and the testing set (20% of the total data).  Each subset of the data was then transformed into a data frame where we created custom metrics (such as price in thousands) and ensured that factored features had the same levels across all three sets.
 
-Using the training data set, we created linear models for each home feature to learn which of these attributes had the largest impact on the price of the home. From each model we collected and compared each R squared value. Of the twenty-five features included in the data set, we arbitrarily selected features whose R squared value was greater than or equal to ten percent. As such, these curated list of features, twelve in all, included R squared values that ranged from grade (51%) to bedrooms (10%). 
+Using the training data set, we created linear models for each home feature to learn which of these attributes had the largest impact on the price of the home. From each model we collected and compared each R squared value. Of the twenty-five features included in the data set, we arbitrarily selected features whose R squared value was greater than or equal to ten percent. As such, these curated list of features, twelve in all, included R squared values that ranged from grade (51%) to bedrooms (10%).
 
-Next, we ran multiple decision trees and used the root mean squared error (RMSE) to validate the accuracy of each tree.  Our first tree included all the features of the data set which produced a RMSE of 153.35 (measured in price in thousands). Our next tree included features that had a R squared value greater than twelve percent which had an accuracy of 159.63. Next we split this group of features into two categories, features with a R squared value greater than twenty-five percent and those with a R squared value less than twenty-five percent. The former group resulted in a RMSE of 174.18 where the latter produced a RMSE of 241.81. 
+Next, we ran multiple decision trees and used the root mean squared error (RMSE) to validate the accuracy of each tree.  Our first tree included all the features of the data set which produced a RMSE of 153.35 (measured in price in thousands). Our next tree included features that had a R squared value greater than twelve percent which had an accuracy of 159.63. Next we split this group of features into two categories, features with a R squared value greater than twenty-five percent and those with a R squared value less than twenty-five percent. The former group resulted in a RMSE of 174.18 where the latter produced a RMSE of 241.81.
 
 Finally, for each tree we plotted the observed values against the predicted values to visualize the error rates.
 
