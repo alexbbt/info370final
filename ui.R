@@ -25,7 +25,7 @@ shinyUI(
 
         tabPanel(
             title = "Report",
-            includeHTML('temp_report.html')
+            includeHTML('report.html')
         ),
 
         tabPanel(
@@ -40,9 +40,10 @@ shinyUI(
                         radioButtons(inputId = "model",
                                      label = "",
                                      choices = c(
-                                         "Full" = "full",
-                                         "Top 5" = "top5",
-                                         "Second 5" = "second5"
+                                         "All" = "all",
+                                         "Lower" = "lower",
+                                         "Upper" = "upper",
+                                         "R-squared" = "rsquare"
                                      ))
                    ),
                    wellPanel(
@@ -50,7 +51,7 @@ shinyUI(
                        textOutput(outputId = "model_info")
                    )),
                 column(9,
-                    h2("Model"),
+                    h2(textOutput(outputId = "plot_title")),
                     plotlyOutput("plot")
                 )
             )

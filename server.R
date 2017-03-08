@@ -2,9 +2,10 @@
 
 # Needed libraries
 library(shiny)
+library(stringr)
 
 # Source files
-source('temp_models.R')
+source('shiny_setup.R')
 
 
 #############################
@@ -14,7 +15,13 @@ source('temp_models.R')
 shinyServer(function(input, output) {
 
     output$plot <- renderPlotly({
-        ggplotly(g)
+        ggplotly(plot_pred(input$model))
+    })
+
+    output$plot_title <- renderText({
+        paste("Predicted vs Actual Price for:",
+              str_to_title(input$model),
+              "Model")
     })
 
     output$model_info <- renderText({
