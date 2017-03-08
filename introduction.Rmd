@@ -1,3 +1,9 @@
+---
+output: 
+    html_document:
+        theme: null
+---
+
 # Predicting Home Prices in King County
 
 ### Info 370 final project
