@@ -50,8 +50,6 @@ plot_pred <- function(model) {
     return(g)
 }
 
-g.all <- plot_pred('all')
-
 
 #################
 ### RMSE list ###
