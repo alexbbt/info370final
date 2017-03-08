@@ -54,7 +54,6 @@ RMSE.lower <- sqrt(mean((input.response - prediction.response.lower)^2))
 test.data$prediction.lower <- prediction.response.lower
 
 
-
 ################
 ### Analysis ###
 ################
@@ -66,15 +65,28 @@ plot(test.data$price.thousands, test.data$prediction.upper)
 plot(test.data$price.thousands, test.data$prediction.lower)
 
 
+# Pretty Plots
+ggplot(test.data, aes(x = test.data$price.thousands, y = test.data$prediction.all))  +
+  scale_x_continuous(limits=c(min(test.data$price.thousands),max(test.data$price.thousands))) +
+  scale_y_continuous(limits=c(min(test.data$prediction.all),max(test.data$prediction.all))) +
+  geom_point(shape = 1, colour = '#6baed6') +
+  geom_rug(col= '#3182bd') +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_abline(intercept = 0, slope = 1, color = 'black') +
+  labs (title = "Price vs Predicted Price",
+        x = 'Predicted Price from All Tree',
+        y = 'Price')
+
+
 ######################
 ### Write new data ###
 ######################
 
 rmse.data <-
-    data_frame(
-        model.name = c('all', 'lower', 'upper', 'rsquare'),
-        rmse = c(RMSE.all, RMSE.lower, RMSE.upper, RMSE.rsquared)
-    )
+  data_frame(
+    model.name = c('all', 'lower', 'upper', 'rsquare'),
+    rmse = c(RMSE.all, RMSE.lower, RMSE.upper, RMSE.rsquared)
+  )
 
 write_csv(test.data, 'data/pred_data.csv')
 write_csv(rmse.data, 'data/models_rmse.csv')
