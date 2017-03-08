@@ -72,7 +72,7 @@ plot(test.data$price.thousands, test.data$prediction.lower)
 
 rmse.data <-
     data_frame(
-        model.name = c('all', 'lower', 'upper', 'rsquared'),
+        model.name = c('all', 'lower', 'upper', 'rsquare'),
         rmse = c(RMSE.all, RMSE.lower, RMSE.upper, RMSE.rsquared)
     )
 
